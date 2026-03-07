@@ -5,7 +5,7 @@ from telethon.sessions import StringSession
 from logging import INFO, basicConfig, getLogger
 
 from .handler.spy import HANDLERS
-from tgubot import lib
+from tgubot import function
 
 
 def main():
