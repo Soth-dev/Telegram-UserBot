@@ -1,4 +1,6 @@
-SHELL_PATH = "/data/data/com.termux/files/usr/bin/bash"
+from html import escape as FIX
+from traceback import format_exc as ERR
+
 CORE = {
     "SUDO": "./saved/sudo",
     "ISUDO": "./saved/isudo",
@@ -125,4 +127,3 @@ def PEN(n, t):
 def EYE(n):
     with open(CORE[n]) as f:
         return f.read().strip().split("\n")
-

@@ -1,9 +1,11 @@
 from dotenv import load_dotenv
+
+load_dotenv(".env")
+
 import os
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from logging import INFO, basicConfig, getLogger
-
 from .handler.spy import HANDLERS
 from tgubot import function
 
@@ -14,10 +16,11 @@ def main():
     # print(importlib.util.find_spec(*lib.__path__))
     # print(os.listdir(*lib.__path__))
     # return
+    if not os.path.exists("./.cache"):
+        os.mkdir("./.cache")
+
     basicConfig(format="%(message)s", level=INFO)
     LOGS = getLogger(__name__)
-
-    load_dotenv(".env")
 
     string_session = os.getenv("STRING_SESSION")
     api_id = os.getenv("API_KEY")
@@ -33,6 +36,7 @@ def main():
     # Attach all collected handlers
     for callback, builder in HANDLERS:
         bot.add_event_handler(callback, builder)
+        print(dir(callback), dir(builder))
     # print(HANDLERS)
 
     bot.start()

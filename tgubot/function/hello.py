@@ -1,4 +1,7 @@
 from tgubot.handler.spy import SPY
+
+
 @SPY(outgoing=True, pattern="!!hello")
-async def greet(E):
+async def Greet(E):
     await E.reply("Hi there!")
+
