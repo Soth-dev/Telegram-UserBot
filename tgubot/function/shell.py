@@ -31,17 +31,19 @@ async def Winsh(E):
     finaltext = "$ " + C + "\n" + o if o else f"$ {C}"
     try:
         draw_window("./tgubot/assets/fonts/firacode.ttf", finaltext, randimg()).save(
-            "wrapped_text_window_with_gradient.png"
+            "./.cache/wrapped_text_window_with_gradient.png"
         )
         if E.is_reply:
             await E.client.send_file(
                 E.chat_id,
-                "wrapped_text_window_with_gradient.png",
+                "./.cache/wrapped_text_window_with_gradient.png",
                 reply_to=E.reply_to_msg_id,
             )
         else:
             await E.client.send_file(
-                E.chat_id, "wrapped_text_window_with_gradient.png", reply_to=E.id
+                E.chat_id,
+                "./.cache/wrapped_text_window_with_gradient.png",
+                reply_to=E.id,
             )
         if id == str(MY_USER_ID):
             await E.delete()
@@ -50,7 +52,7 @@ async def Winsh(E):
             await E.edit(ERR())
         else:
             await E.reply(ERR())
-    os.remove("wrapped_text_window_with_gradient.png")
+    os.remove("./.cache/wrapped_text_window_with_gradient.png")
 
 
 @SPY(pattern="!!shell ?(.+)?")

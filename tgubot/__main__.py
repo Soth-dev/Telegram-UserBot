@@ -16,8 +16,7 @@ def main():
     # print(importlib.util.find_spec(*lib.__path__))
     # print(os.listdir(*lib.__path__))
     # return
-    if not os.path.exists("./.cache"):
-        os.mkdir("./.cache")
+    fix()
 
     basicConfig(format="%(message)s", level=INFO)
     LOGS = getLogger(__name__)
@@ -44,6 +43,10 @@ def main():
     bot.run_until_disconnected()
     LOGS.info("BOT OFF")
 
+def fix():
+    for i in [".cache","saved"]:
+        if not os.path.exists(f"./{i}"):
+            os.mkdir(f"./{i}")
 
 if __name__ == "__main__":
     main()
