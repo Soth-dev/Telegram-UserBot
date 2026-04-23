@@ -7,7 +7,6 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from logging import INFO, basicConfig, getLogger
 from .handler.spy import HANDLERS
-from tgubot import function
 
 
 def main():
@@ -17,6 +16,7 @@ def main():
     # print(os.listdir(*lib.__path__))
     # return
     fix()
+    from tgubot import function
 
     basicConfig(format="%(message)s", level=INFO)
     LOGS = getLogger(__name__)
@@ -43,10 +43,12 @@ def main():
     bot.run_until_disconnected()
     LOGS.info("BOT OFF")
 
+
 def fix():
-    for i in [".cache","saved"]:
+    for i in [".cache", "saved"]:
         if not os.path.exists(f"./{i}"):
             os.mkdir(f"./{i}")
+
 
 if __name__ == "__main__":
     main()
