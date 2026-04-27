@@ -1,5 +1,7 @@
 from html import escape as FIX
 from traceback import format_exc as ERR
+from telethon.events import NewMessage
+from telethon.tl.custom import Message
 
 CORE = {
     "SUDO": "./saved/sudo",
@@ -23,12 +25,18 @@ ALREADY_THERE = "This user's already there"
 """Get, Edit, Inspect & Send Messages"""
 
 
-async def GR(E, b=0):
-    m = await E.get_reply_message()
+def ARG(E: NewMessage.Event, n: int):
+    return E.pattern_match.group(n) if E.pattern_match else None
+
+
+async def GR(
+    E: NewMessage.Event, b=0
+) -> tuple[Message, str | None] | Message | tuple[None, None]:
+    m: Message | None = await E.get_reply_message()
     return (m, T(m)) if b and m else m if m else (None, None)
 
 
-async def ED(E, t):
+async def ED(E: NewMessage.Event, t):
     try:
         return await E.edit(t, parse_mode="HTML")
     except Exception as ex:
@@ -36,40 +44,45 @@ async def ED(E, t):
             pass
         else:
             return await SM(
-                E.chat_id if hasattr(E, "chat_id") else E.peer_id.channel_id, t
+                E, E.chat_id if hasattr(E, "chat_id") else E.peer_id.channel_id, t
             )
 
 
-async def SM(id, t):
-    return await bot.send_message(id, t, parse_mode="HTML")
+async def SM(E: NewMessage.Event, id, t):
+    return (
+        await E.client.send_message(id, t, parse_mode="HTML")
+        if E.client and hasattr(E.client, "send_message")
+        else None
+    )
 
 
-def T(E):
-    return E.text if hasattr(E, "text") else E.message.text
+def T(E: NewMessage.Event | Message) -> str | None:
+    return E.text if hasattr(E, "text") else getattr(E.message, "text", None)
 
 
 """Obtain ID, User, Entity & Info"""
 
 
-async def EN(id):
-    return await bot.get_entity(int(id))
+async def EN(E: NewMessage.Event, id):
+    return (
+        await E.client.get_entity(int(id))
+        if E.client and hasattr(E.client, "get_entity")
+        else None
+    )
 
 
 def U(EN, i=0):
     return EN.username if not i else (EN.username, EN.first_name)
 
 
-def ID(E):
+def ID(E: NewMessage.Event) -> int:
     return E.sender_id
 
 
 """Execute & Get SUDO"""
 
 
-def SSU(C, **kw):
-    return SSSU([SHELL_PATH, "-c", C], stdout=PIPE, stderr=STDOUT, text=True, **kw)
-
-
+"""
 def SU(C):
     try:
         o = FIX(SSU(C).stdout.read())
@@ -78,6 +91,7 @@ def SU(C):
     if len(o) + len(C) >= 4000:
         o = f"{M(o[: 4000 - len(C)])}{F(0, 'blockquote')}\n{Q(M('[CUT OUTPUT TO ' + str(4000 - len(C)) + '/' + str(len(o) + len(C)) + ' CHARS; NO MORE SPACE]'))}{F([], 'blockquote')}"
     return Q(M("$ ") + M(C) + M("\n" + o if o else ""))
+"""
 
 
 def GS():

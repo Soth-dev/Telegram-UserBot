@@ -1,6 +1,5 @@
 import os
 import asyncio
-from re import Pattern
 from tgubot.plugin import variable
 from tgubot.plugin.functions import ID, GS, GIS, Q, M, FIX, ERR
 from tgubot.plugin.subshell import SU

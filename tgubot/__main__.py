@@ -1,11 +1,11 @@
 from dotenv import load_dotenv
-
-load_dotenv(".env")
-
 import os
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from logging import INFO, basicConfig, getLogger
+
+load_dotenv(".env")
+
 from .handler.spy import HANDLERS
 
 
@@ -35,7 +35,7 @@ def main():
     # Attach all collected handlers
     for callback, builder in HANDLERS:
         bot.add_event_handler(callback, builder)
-        print(dir(callback), dir(builder))
+        # print(dir(callback), dir(builder))
     # print(HANDLERS)
 
     bot.start()
