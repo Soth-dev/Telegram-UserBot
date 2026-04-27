@@ -8,6 +8,9 @@ load_dotenv(".env")
 api_id = getenv("API_KEY")
 api_hash = getenv("API_HASH")
 
+if not all([api_id, api_hash]):
+    print("please add the env in .env")
+
 with TelegramClient(StringSession(), api_id, api_hash) as client:
     ...  # use the client
 

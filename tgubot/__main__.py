@@ -10,11 +10,6 @@ from .handler.spy import HANDLERS
 
 
 def main():
-    # print(func_pkg.__path__)
-    # print(lib.__path__)
-    # print(importlib.util.find_spec(*lib.__path__))
-    # print(os.listdir(*lib.__path__))
-    # return
     fix()
     from tgubot import function
 
@@ -35,9 +30,8 @@ def main():
     # Attach all collected handlers
     for callback, builder in HANDLERS:
         bot.add_event_handler(callback, builder)
-        # print(dir(callback), dir(builder))
-    # print(HANDLERS)
 
+    print()
     bot.start()
     LOGS.info("BOT ON")
     bot.run_until_disconnected()

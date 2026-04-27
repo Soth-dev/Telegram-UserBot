@@ -37,10 +37,9 @@ async def download(E: NewMessage.Event):
                 E, Q(M(f"{DOWNLOAD_TRIG} ") + M(f) + M(f"\n{pro} {p}%\n") + M(art))
             )
 
-    # await event.delete()
     try:
         await r.download_media(f, progress_callback=CB)
-        await sleep(1)  # await E.edit("✅")
+        await sleep(1)
         await sleep(4)
         await E.delete()
     except Exception as e:

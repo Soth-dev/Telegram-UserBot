@@ -18,7 +18,6 @@ async def Winsh(E):
     elif id not in GIS() and id != str(MY_USER_ID):
         return
     C = E.pattern_match.group(1)
-    print(C)
     if id == str(MY_USER_ID):
         await E.edit(f"{Q(M(f'!!sh {FIX(C)}'))}", parse_mode="HTML")
     try:

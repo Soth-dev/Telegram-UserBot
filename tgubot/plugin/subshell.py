@@ -1,5 +1,9 @@
 from subprocess import Popen as SSSU, PIPE, STDOUT
-from .variable import SHELL_PATH
+import os
+
+SHELL_PATH = os.getenv("SHELL_PATH")
+if not SHELL_PATH:
+    SHELL_PATH = "/bin/bash"
 
 
 def SSU(C, **kw):
