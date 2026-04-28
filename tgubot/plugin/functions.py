@@ -25,8 +25,8 @@ ALREADY_THERE = "This user's already there"
 """Get, Edit, Inspect & Send Messages"""
 
 
-def ARG(E: NewMessage.Event, n: int):
-    return E.pattern_match.group(n) if E.pattern_match else None
+def ARG(E: NewMessage.Event, n: int) -> str:
+    return E.pattern_match.group(n) if E.pattern_match else ""
 
 
 async def GR(
