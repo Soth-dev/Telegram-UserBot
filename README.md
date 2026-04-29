@@ -12,7 +12,7 @@ YOUR_CODE_EDITOR .env
 Generate the String Session:
 
 ```bash
-uv run string_sessuon.py
+uv run string_session.py
 ```
 
 run the UserBot:
