@@ -9,6 +9,12 @@ cp .env.example .env
 YOUR_CODE_EDITOR .env
 ```
 
+Generate the String Session:
+
+```bash
+uv run string_sessuon.py
+```
+
 run the UserBot:
 
 ```bash

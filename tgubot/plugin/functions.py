@@ -29,11 +29,8 @@ def ARG(E: NewMessage.Event, n: int) -> str:
     return E.pattern_match.group(n) if E.pattern_match else ""
 
 
-async def GR(
-    E: NewMessage.Event, b=0
-) -> tuple[Message, str | None] | Message | tuple[None, None]:
-    m: Message | None = await E.get_reply_message()
-    return (m, T(m)) if b and m else m if m else (None, None)
+async def GR(E: NewMessage.Event) -> Message | None:
+    return await E.get_reply_message()
 
 
 async def ED(E: NewMessage.Event, t):
@@ -56,8 +53,14 @@ async def SM(E: NewMessage.Event, id, t):
     )
 
 
-def T(E: NewMessage.Event | Message) -> str | None:
-    return E.text if hasattr(E, "text") else getattr(E.message, "text", None)
+def T(E: NewMessage.Event | Message | None) -> str | None:
+    return (
+        None
+        if not E
+        else E.text
+        if hasattr(E, "text")
+        else getattr(E.message, "text", None)
+    )
 
 
 """Obtain ID, User, Entity & Info"""
@@ -75,7 +78,7 @@ def U(EN, i=0):
     return EN.username if not i else (EN.username, EN.first_name)
 
 
-def ID(E: NewMessage.Event) -> int:
+def ID(E: NewMessage.Event | Message) -> int:
     return E.sender_id
 
 

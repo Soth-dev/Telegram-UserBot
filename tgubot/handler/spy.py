@@ -10,7 +10,7 @@ def SPY(**a):
     Optional: p="regex" for case-insensitive pattern.
     """
     print(
-        f"  \033[93mFunction:\033[0m {a['pattern']}{' \033[96m(outgoing)\033[0m' if 'outgoing' in a else ''}"
+        f"  \033[93mFunction:\033[0m {a['pattern']}{' \033[96m(outgoing)\033[0m' if 'outgoing' in a and a['outgoing'] else ''}"
     )
     p = a.pop("p", None)
     if p:
@@ -23,7 +23,9 @@ def SPY(**a):
             except KeyboardInterrupt:
                 pass
             except Exception:
-                print(f"[SPY] Handler error: {ERR()}")
+                print(
+                    f"\033[101m\033[93m[SPY]\033[0m\033[91m Handler error:\033[0m {ERR()}"
+                )
 
         HANDLERS.append((wrapper, events.NewMessage(**a)))
         HANDLERS.append((wrapper, events.MessageEdited(**a)))
