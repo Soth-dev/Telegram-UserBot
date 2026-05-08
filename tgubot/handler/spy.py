@@ -24,7 +24,7 @@ def SPY(**a):
                 pass
             except Exception:
                 print(
-                    f"\033[101m\033[93m[SPY]\033[0m\033[91m Handler error:\033[0m {ERR()}"
+                    f"\033[101m\033[93m[SPY]\033[0m\033[91m Handler error:\033[0m\n{ERR()}"
                 )
 
         HANDLERS.append((wrapper, events.NewMessage(**a)))
