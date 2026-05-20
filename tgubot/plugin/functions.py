@@ -53,6 +53,10 @@ async def SM(E: NewMessage.Event, id, t):
     )
 
 
+def QT(E: NewMessage.Event):
+    return E.reply_to.quote_text
+
+
 def T(E: NewMessage.Event | Message | None) -> str | None:
     return (
         None

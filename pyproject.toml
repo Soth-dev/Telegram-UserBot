@@ -7,4 +7,5 @@ dependencies = [
     "google-genai>=1.73.1",
     "pillow>=12.2.0",
     "telethon>=1.43.2",
+    "wikipedia-api>=0.14.1",
 ]

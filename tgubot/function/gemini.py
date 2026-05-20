@@ -2,7 +2,7 @@ from google import genai
 from google.genai.types import GenerateContentConfig
 from telethon.events import NewMessage
 from tgubot.handler.spy import SPY
-from tgubot.plugin.functions import ARG, Q, M, GR, T
+from tgubot.plugin.functions import ARG, Q, M, GR, T, QT
 
 
 client = genai.Client()
@@ -11,7 +11,8 @@ client = genai.Client()
 @SPY(outgoing=True, pattern="(?s)^!!ai (.+)")
 async def gemini(E: NewMessage.Event):
     L = await E.reply(Q(M("Generating...")), parse_mode="HTML")
-    r = gen_resp(ARG(E, 1), T(await GR(E)))
+    reply = QT(E) if E.reply_to.quote else T(await GR(E))
+    r = gen_resp(ARG(E, 1), reply)
     await L.edit(r)
 
 
