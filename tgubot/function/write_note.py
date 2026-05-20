@@ -1,6 +1,6 @@
 from telethon.events import NewMessage
 from tgubot.handler.spy import SPY
-from tgubot.plugin.functions import ID, GIS, GS
+from tgubot.plugin.functions import ID, GIS, GS, M, Q
 from PIL import Image, ImageDraw, ImageFont
 import os
 
@@ -25,7 +25,7 @@ async def writer(E: NewMessage.Event):
     else:
         return  # await E.edit("error")
     if id == MY_USER_ID:
-        await E.edit("running")
+        await E.edit(Q(M("Writing...")), parse_mode="HTML")
     img = Image.open("tgubot/assets/images/note.jpg")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("tgubot/assets/fonts/ass.ttf", 30)
@@ -36,7 +36,7 @@ async def writer(E: NewMessage.Event):
     for line in lines:
         draw.text((x, y), line, fill=(1, 22, 55), font=font)
         y = y + line_height - 5
-    file = "ult.jpg"
+    file = ".cache/note.jpg"
     img.save(file)
     if E.is_reply:
         rmsg = await E.get_reply_message()

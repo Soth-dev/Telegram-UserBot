@@ -128,6 +128,10 @@ def M(t):
     return F(t, "code")
 
 
+def B(t):
+    return F(t, "b")
+
+
 def P(t):
     return F(t, "pre")
 
