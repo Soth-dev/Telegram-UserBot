@@ -1,5 +1,4 @@
 import asyncio
-from datetime import datetime
 import os
 from telethon.events import NewMessage
 from gtts import gTTS
@@ -7,7 +6,7 @@ from tgubot.handler.spy import SPY
 from tgubot.plugin.functions import M, Q
 
 
-@SPY(outgoing=True, pattern="!!tts")
+@SPY(outgoing=True, pattern="^!!tts")
 async def tts(E: NewMessage.Event):
     message = E.message
     args = E.text.split()[1:]
@@ -22,7 +21,7 @@ async def tts(E: NewMessage.Event):
 
     if delmsg:
         await E.edit(Q(M(f"TTS: {delmsg}")), parse_mode="HTML")
-        filename = ".cache/" + datetime.now().strftime("%d%m%y-%H%M%S%f") + ".mp3"
+        filename = ".cache/voicetts.mp3"
 
         tts = gTTS(delmsg)
         tts.save(filename)
