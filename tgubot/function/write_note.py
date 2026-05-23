@@ -35,7 +35,7 @@ async def writer(E: NewMessage.Event):
     line_height = bbox[3] - bbox[1]
     for line in lines:
         draw.text((x, y), line, fill=(1, 22, 55), font=font)
-        y = y + line_height - 5
+        y = y + line_height + 4
     file = ".cache/note.jpg"
     img.save(file)
     if E.is_reply:
@@ -60,4 +60,4 @@ def text_set(text):
                 k = len(line) // 55
                 for z in range(1, k + 2):
                     lines.append(line[((z - 1) * 55) : (z * 55)])
-    return lines[:25]
+    return lines[:24]
