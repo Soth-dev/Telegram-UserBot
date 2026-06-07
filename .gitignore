@@ -13,3 +13,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Private function(s)
+tgubot/function/any_message.py

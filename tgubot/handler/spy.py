@@ -10,7 +10,7 @@ def SPY(**a):
     Optional: p="regex" for case-insensitive pattern.
     """
     print(
-        f"  \033[93mFunction:\033[0m {a['pattern']}{' \033[96m(outgoing)\033[0m' if 'outgoing' in a and a['outgoing'] else ''}"
+        f"  \033[93mFunction:\033[0m {a['pattern'] if 'pattern' in a else '\033[96m(any)\033[0m'}{' \033[96m(outgoing)\033[0m' if 'outgoing' in a and a['outgoing'] else ''}"
     )
     p = a.pop("p", None)
     if p:
