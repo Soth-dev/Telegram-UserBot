@@ -11,7 +11,7 @@ client = genai.Client()
 @SPY(outgoing=True, pattern="(?s)^!!ai (.+)")
 async def gemini(E: NewMessage.Event):
     L = await E.reply(Q(M("Generating...")), parse_mode="HTML")
-    reply = QT(E) if E.reply_to.quote else T(await GR(E))
+    reply = QT(E) if E.reply_to and E.reply_to.quote else T(await GR(E))
     r = gen_resp(ARG(E, 1), reply)
     await L.edit(r)
 

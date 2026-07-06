@@ -1,12 +1,12 @@
 from tgubot.handler.spy import SPY
 from tgubot.plugin.functions import ED, Q, M, PEN, PIN, ID, GIS, GS, GDM, GR, U, EN
 
-ADD_SUDO_TRIG = r"!!TAKE SUDO$"
-NUKE_SUDO_TRIG = r"!!NUKE SUDO$"
-ADD_ISUDO_TRIG = r"!!TAKE ISUDO$"
-NUKE_ISUDO_TRIG = r"!!NUKE ISUDO$"
-ADD_DMUTE_TRIG = r"!!TAKE DMUTE$"
-NUKE_DMUTE_TRIG = r"!!NUKE DMUTE$"
+ADD_SUDO_TRIG = r"^!!TAKE SUDO$"
+NUKE_SUDO_TRIG = r"^!!NUKE SUDO$"
+ADD_ISUDO_TRIG = r"^!!TAKE ISUDO$"
+NUKE_ISUDO_TRIG = r"^!!NUKE ISUDO$"
+ADD_DMUTE_TRIG = r"^!!TAKE DMUTE$"
+NUKE_DMUTE_TRIG = r"^!!NUKE DMUTE$"
 """Strings"""
 AFTER_DMUTE = "Now I may shut you up when I can, {}"
 AFTER_DMUTE_NUKE = "I will stop trying to shut you up, {}"

@@ -34,7 +34,9 @@ def get_img(width, height, image):
     return im
 
 
-def draw_window(font_path, text, image_path=None):
+def draw_window(
+    font_path: str, text: str, image_path: str | None = None
+) -> Image.Image:
     """Draw a window with rounded corners, three dots, and wrapped text below the dots."""
     patting = 28
     border_radius = 32

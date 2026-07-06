@@ -26,7 +26,9 @@ ALREADY_THERE = "This user's already there"
 
 
 def ARG(E: NewMessage.Event, n: int) -> str:
-    return E.pattern_match.group(n) if E.pattern_match else ""
+    return (
+        E.pattern_match.group(n) if E.pattern_match and E.pattern_match.group(n) else ""
+    )
 
 
 async def GR(E: NewMessage.Event) -> Message | None:

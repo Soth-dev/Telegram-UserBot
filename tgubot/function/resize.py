@@ -74,7 +74,7 @@ async def imageresizer(E):
     await E.delete()
 
 
-@SPY(outgoing=True, pattern=r"!!rzvid (\d+) (\d+) ?(r)?")
+@SPY(outgoing=True, pattern=r"^!!rzvid (\d+) (\d+) ?(r)?")
 async def videoresizer(E):
 
     match = E.pattern_match
