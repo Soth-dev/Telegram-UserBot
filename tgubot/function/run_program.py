@@ -7,7 +7,7 @@ from tgubot.plugin.macwin import draw_window
 from tgubot.plugin.randomimage import randimg
 
 
-@SPY(outgoing=True, pattern="(?s)^!!?(i)?py ?(.+)?")
+@SPY(outgoing=True, pattern="(?s)^!!?(i|r)?py ?(.+)?")
 async def py(E: NewMessage.Event):
     code = ARG(E, 2)
     reply = QT(E) if E.reply_to and E.reply_to.quote else T(await GR(E))
@@ -20,7 +20,9 @@ async def py(E: NewMessage.Event):
     with open(".cache/main.py", "w") as f:
         f.write(code)
     r = SU("python .cache/main.py")
-    if ARG(E, 1) != "i":
+    if ARG(E, 1) == "r":
+        await E.edit(f"{FIX(r)}"[:4096], parse_mode="HTML")
+    elif ARG(E, 1) != "i":
         await E.edit(f"{Q(M(FIX(code)))}\n{Q(M(FIX(r)))}"[:4000], parse_mode="HTML")
     elif E.client:
         with io.BytesIO() as buff:
@@ -48,7 +50,7 @@ async def py(E: NewMessage.Event):
         await E.delete()
 
 
-@SPY(outgoing=True, pattern="(?s)^!!?(i)?rs ?(.+)?")
+@SPY(outgoing=True, pattern="(?s)^!!?(i|r)?rs ?(.+)?")
 async def rust(E: NewMessage.Event):
     code = ARG(E, 2)
     reply = QT(E) if E.reply_to and E.reply_to.quote else T(await GR(E))
@@ -63,7 +65,9 @@ async def rust(E: NewMessage.Event):
     with open(".cache/main.rs", "w") as f:
         f.write(code)
     r = SU("rustc .cache/main.rs -o .cache/mainrs && ./.cache/mainrs")
-    if ARG(E, 1) != "i":
+    if ARG(E, 1) == "r":
+        await E.edit(f"{FIX(r)}"[:4096], parse_mode="HTML")
+    elif ARG(E, 1) != "i":
         await E.edit(f"{Q(M(FIX(code)))}\n{Q(M(FIX(r)))}"[:4000], parse_mode="HTML")
     elif E.client:
         with io.BytesIO() as buff:
