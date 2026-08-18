@@ -6,4 +6,4 @@ async def Greet(E):
 
 
 SPY(outgoing=True, pattern="^!!hello$")(Greet)
-SPY(outgoing=True, pattern="^/start$")(Greet)
+# SPY(outgoing=True, pattern="^/start$")(Greet)

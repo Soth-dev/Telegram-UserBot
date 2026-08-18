@@ -11,6 +11,7 @@ dependencies = [
   "telethon>=1.43.2",
   "wikipedia-api>=0.14.1",
   "numpy==2.4.6",
+  "matplotlib>=3.11.1",
 ]
 [tool.uv]
 override-dependencies = ["pillow>=12.2.0"]
