@@ -1,6 +1,5 @@
 import random
 import os
-from typing import List, Dict, Tuple
 from PIL import Image
 from contextlib import ExitStack
 import io
@@ -23,9 +22,9 @@ async def maze(E: NewMessage.Event):
             im.save(buff, "PNG")
             buff.name = "maze.png"
             buff.seek(0)
-            if E.is_reply:
+            if E.is_reply and E.client:
                 await E.client.send_file(E.chat_id, buff, reply_to=E.reply_to_msg_id)
-            else:
+            elif E.client:
                 await E.client.send_file(E.chat_id, buff, reply_to=E.id)
     await E.delete()
 
@@ -76,9 +75,8 @@ def create(width: int, height: int):
         for dx, dy in dirs:
             nx, ny = cx + dx, cy + dy
 
-            if 0 <= nx < width and 0 <= ny < height:
-                if not visited[ny][nx]:
-                    unvisited_neighbors.append((nx, ny, dx, dy))
+            if 0 <= nx < width and 0 <= ny < height and not visited[ny][nx]:
+                unvisited_neighbors.append((nx, ny, dx, dy))
 
         if not unvisited_neighbors:
             stack.pop()
@@ -100,7 +98,7 @@ def create(width: int, height: int):
     return grid
 
 
-def _build_interp_map() -> Dict[Tuple[str, str, str], str]:
+def _build_interp_map() -> dict[tuple[str, str, str], str]:
     """Generates an O(1) lookup dictionary for vertical tile interpolation."""
     m = {}
     for p in "#rad":
@@ -124,7 +122,7 @@ def _build_interp_map() -> Dict[Tuple[str, str, str], str]:
     return m
 
 
-def rander(grid: List[List[str]], input_path: str) -> Image.Image | None:
+def rander(grid: list[list[str]], input_path: str) -> Image.Image | None:
     if not grid or not grid[0]:
         return
 
@@ -145,7 +143,7 @@ def rander(grid: List[List[str]], input_path: str) -> Image.Image | None:
         return im
 
 
-def _expand_horizontal(row: List[str]) -> List[str]:
+def _expand_horizontal(row: list[str]) -> list[str]:
     """Helper to handle the repetitive horizontal row expansion."""
     new_row = []
     for i in range(len(row) - 1):
@@ -154,7 +152,7 @@ def _expand_horizontal(row: List[str]) -> List[str]:
     return new_row
 
 
-def fix(grid: List[List[str]]) -> List[List[str]]:
+def fix(grid: list[list[str]]) -> list[list[str]]:
     if not grid or not grid[0]:
         return grid
 
